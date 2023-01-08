@@ -3,15 +3,18 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float _speed = 100;
+    [Header("Movement")]
+    [SerializeField] private float speed = 1.5f;
+    [SerializeField] private bool flipY;
+
+    [Header("Tilt")]
+    [SerializeField] private int tiltX = 20;
+    [SerializeField] private int tiltZ = 20;
+    [SerializeField] [Range(0, 1)] private float tiltSpeed = 0.25f;
     
     private Rigidbody _rigidbody;
     private Transform _transform;
 
-    private float _horizontalInput;
-    private float _verticalInput;
-    private Vector3 _movement;
-    
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -20,12 +23,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        _horizontalInput = Input.GetAxisRaw("Horizontal");
-        _verticalInput = Input.GetAxisRaw("Vertical");
-        
-        // TODO: Option to flip vertical input
+        // Get input
+        var horizontalInput = Input.GetAxisRaw("Horizontal");
+        var verticalInput = Input.GetAxisRaw("Vertical") * (flipY ? -1 : 1);
 
-        _movement = Vector3.ClampMagnitude(new Vector3(_horizontalInput, _verticalInput, 0), 1);
-        _rigidbody.velocity = _movement * _speed;
+        // Move
+        var movement = Vector3.ClampMagnitude(new Vector3(horizontalInput, verticalInput, 0), 1);
+        _rigidbody.velocity = movement * speed;
+        
+        // Tilt
+        var targetRotationX = movement.y > 0 ? -tiltX : movement.y < 0 ? tiltX : 0;
+        var targetRotationZ = movement.x > 0 ? -tiltZ : movement.x < 0 ? tiltZ : 0;
+        var targetRotation = Quaternion.Euler(targetRotationX, 0, targetRotationZ);
+        _transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, tiltSpeed);
     }
 }
