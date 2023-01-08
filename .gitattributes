@@ -2,3 +2,4 @@
 * text=auto
 *.shader linguist-vendored
 *.cginc linguist-vendored
+*.wlt linguist-vendored
