@@ -41,9 +41,9 @@ MonoBehaviour:
   m_Name: Global Volume Profile
   m_EditorClassIdentifier: 
   components:
+  - {fileID: 5248761360734857023}
   - {fileID: 4501862500816605381}
   - {fileID: 5581795993255950588}
-  - {fileID: 5248761360734857023}
   - {fileID: -6383707966231765398}
 --- !u!114 &4501862500816605381
 MonoBehaviour:
@@ -60,10 +60,10 @@ MonoBehaviour:
   active: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.5
+    m_Value: 0.6
   intensity:
     m_OverrideState: 1
-    m_Value: 0.25
+    m_Value: 1
   scatter:
     m_OverrideState: 0
     m_Value: 0.7
@@ -104,7 +104,7 @@ MonoBehaviour:
     m_Value: 3
   intensity:
     m_OverrideState: 1
-    m_Value: 0.675
+    m_Value: 0.41
   response:
     m_OverrideState: 0
     m_Value: 0.8
