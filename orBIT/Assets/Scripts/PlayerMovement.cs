@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Tilt")]
     [SerializeField] private int tiltX = 20;
     [SerializeField] private int tiltZ = 20;
-    [SerializeField] [Range(0, 1)] private float tiltSpeed = 0.25f;
+    [SerializeField] private float tiltSpeed = 5f;
     
     private Rigidbody _rigidbody;
     private Transform _transform;
@@ -35,6 +35,6 @@ public class PlayerMovement : MonoBehaviour
         var targetRotationX = movement.y > 0 ? -tiltX : movement.y < 0 ? tiltX : 0;
         var targetRotationZ = movement.x > 0 ? -tiltZ : movement.x < 0 ? tiltZ : 0;
         var targetRotation = Quaternion.Euler(targetRotationX, 0, targetRotationZ);
-        _transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, tiltSpeed);
+        _transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, tiltSpeed * Time.deltaTime);
     }
 }
