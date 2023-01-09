@@ -4,12 +4,13 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] private float speed = 1.5f;
+    [SerializeField] private float speed = 2;
     [SerializeField] private bool flipY;
 
     [Header("Tilt")]
-    [SerializeField] private int tiltX = 20;
-    [SerializeField] private int tiltZ = 20;
+    [SerializeField] private int tiltX = 30;
+    [SerializeField] private int tiltY = 10;
+    [SerializeField] private int tiltZ = 50;
     [SerializeField] private float tiltSpeed = 5f;
     
     private Rigidbody _rigidbody;
@@ -33,8 +34,18 @@ public class PlayerMovement : MonoBehaviour
         
         // Tilt
         var targetRotationX = movement.y > 0 ? -tiltX : movement.y < 0 ? tiltX : 0;
+        var targetRotationY = movement.x > 0 ? -tiltY : movement.x < 0 ? tiltY : 0;
         var targetRotationZ = movement.x > 0 ? -tiltZ : movement.x < 0 ? tiltZ : 0;
-        var targetRotation = Quaternion.Euler(targetRotationX, 0, targetRotationZ);
+
+        var targetRotation = Quaternion.Euler(targetRotationX, targetRotationY, targetRotationZ);
         _transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, tiltSpeed * Time.deltaTime);
+    }
+    
+    private void OnCollisionEnter(Collision collision)
+    {
+        var asteroid = collision.gameObject.GetComponentInParent<Asteroid>();
+        if (!asteroid) return;
+        
+        gameObject.SetActive(false);
     }
 }

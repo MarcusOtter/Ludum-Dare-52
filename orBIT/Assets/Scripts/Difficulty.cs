@@ -1,18 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Difficulty : SingletonMonoBehaviour<Difficulty>
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    internal float EarthSpeed => earthRotationSpeed.Evaluate(currentCurveTime);
+    internal float SpawnDelay => timeBetweenSpawns.Evaluate(currentCurveTime);
+    
+    [SerializeField] private float timeUntilMaxDifficulty = 10f;
+    [SerializeField] private AnimationCurve earthRotationSpeed;
+    [SerializeField] private AnimationCurve timeBetweenSpawns;
+    
+    private float currentCurveTime => Mathf.Clamp01(Time.time / timeUntilMaxDifficulty);
+    
 }
