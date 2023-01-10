@@ -241,6 +241,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelsParent: {fileID: 8366302857776168153}
+  lootPrefab: {fileID: 6089591530923794894, guid: e6b169f1ae7e3014598dc96305644fa1,
+    type: 3}
+  largeHealth: 3
+  mediumHealth: 2
+  smallHealth: 1
+  smallLootMultiplier: 1
+  mediumLootMultiplier: 2
+  largeLootMultiplier: 3
+  fullAsteroidMultiplier: 2
+  baseAmmoLoot: 3
+  baseFuelLoot: 40
 --- !u!1 &8366302857776168154
 GameObject:
   m_ObjectHideFlags: 0

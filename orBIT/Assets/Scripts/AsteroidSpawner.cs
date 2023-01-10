@@ -11,6 +11,7 @@ public class AsteroidSpawner : MonoBehaviour
 
     private void Update()
     {
+        if (!Difficulty.IsRunning) return;
         if (_lastSpawnTime + Difficulty.Instance.SpawnDelay > Time.time) return;
 
         var spawnPosition = GetSpawnPosition(spawnArea.bounds);
